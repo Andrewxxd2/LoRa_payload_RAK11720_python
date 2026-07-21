@@ -2,8 +2,8 @@
 
 import serial
 import time
-import modbus_crc as modbus
 import os
+import readline
 
 device = "USB1"
 pre_payload = "<TPK:A0B765AF40D2,80,AF:"

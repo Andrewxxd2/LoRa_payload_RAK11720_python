@@ -45,7 +45,8 @@ delay(100)
 try:
     while True:
         comando = input("Ingrese el comando a enviar: ")
-        
+        os.system("clear")        
+
         crc_num = modbuscrc(f"{comando}#")
         crc_ascii = f"{crc_num:04X}"
 

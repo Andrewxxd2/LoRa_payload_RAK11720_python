@@ -62,15 +62,11 @@ def opcion_1():
             payload = f"{pre_payload}{comando}#{crc_ascii}{fin_payload}"
             payload_hex = payload.encode('ascii').hex().upper() #codifica en ascii, convierte en hex y convierte todo a mayusculas
 
-            print(f"payload: {payload}")
+            print(f"Enviando Payload: {payload}")
             print(f"payload HEX: {payload_hex}")
+            print("...................................................................\r\n")
 
             Psend(payload_hex) #Envio mensaje LoRa
-
-            #IMPRIME SERIAL
-            line_bytes = ser.readline()
-            line_str = line_bytes.decode('utf-8').rstrip() # Decodifica en UTF-8
-            print(f"{line_str}")
 
     except KeyboardInterrupt:
         print("Programa terminado por el usuario")

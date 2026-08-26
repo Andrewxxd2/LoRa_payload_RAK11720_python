@@ -7,8 +7,9 @@ import readline
 import subprocess as sp
 
 device = "USB1"
-# pre_payload = "<TPK:A0B765AF40D2,80,AF:"
-pre_payload = "<TPK:2A,AE:"
+#pre_payload = "<TPK:80,AF:"
+#pre_payload = "<TPK:2A,AE:"
+pre_payload = "<TPK:07,A0:"
 fin_payload = ">"
 
 msg_inicial = "&93@"

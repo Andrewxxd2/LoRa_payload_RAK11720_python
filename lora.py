@@ -8,6 +8,7 @@ import subprocess as sp
 import pandas as pd
 import serial.tools.list_ports
 import platform
+from pathlib import Path
 
 # Importación segura de readline (solo para Linux)
 try:
@@ -16,6 +17,7 @@ except ImportError:
     pass
 
 
+ruta_csv = ruta_actual = str(Path(__file__).resolve().parent)
 device = "USB0"
 pre_payload = ""
 fin_payload = ">"
@@ -31,7 +33,7 @@ def delay(ms): #delay en milisegundos
 
 
 ser = None #Lo inicio vacio
-# delay(100)
+
 
 def search_RAK11720():
     global ser
@@ -261,7 +263,7 @@ def opcion_3():
 def opcion_4(): #Agregar mas ADDRS y seleccionar otro dispositivo
     global df, pre_payload
 
-    df = pd.read_csv('addr_lora.csv')
+    df = pd.read_csv(f'{ruta_actual}/addr_lora.csv')
 
     print("Direcciones LoRa guardadas")
     print(df)
@@ -295,7 +297,7 @@ def opcion_5(): #Agregar mas ADDRS y seleccionar otro dispositivo
     global df, pre_payload
 
     flag_confirm = False
-    df = pd.read_csv('addr_lora.csv')
+    df = pd.read_csv(f'{ruta_actual}/addr_lora.csv')
 
     print("Direcciones LoRa guardadas")
     print(df)
@@ -317,7 +319,7 @@ def opcion_5(): #Agregar mas ADDRS y seleccionar otro dispositivo
                             archivo.write(f"\n{seleccion1:X},{seleccion2:X}")
                         flag_confirm = True
 
-                        df = pd.read_csv('addr_lora.csv')
+                        df = pd.read_csv(f'{ruta_actual}/addr_lora.csv')
                         print("Direcciones LoRa guardadas")
                         print(df)
 
@@ -405,7 +407,7 @@ def main(): #Funcion principal
         exit()
 
     #Predefinicion de la primera opcion
-    df = pd.read_csv('addr_lora.csv')
+    df = pd.read_csv(f'{ruta_actual}/addr_lora.csv')
 
     addrH = df.iloc[0, 0]
     addrL = df.iloc[0, 1]

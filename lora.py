@@ -17,7 +17,7 @@ except ImportError:
     pass
 
 
-ruta_csv = ruta_actual = str(Path(__file__).resolve().parent)
+ruta_actual = str(Path(__file__).resolve().parent)
 device = "USB0"
 pre_payload = ""
 fin_payload = ">"

@@ -10,7 +10,7 @@
 #define CLS "\033[2J"
 #define HOME "\033[H"
 #define DISCONECT_TIMEOUT 2400000
-#define LORA_FREQ 915500000
+#define LORA_FREQ 915000000
 
 
 
@@ -50,67 +50,7 @@ void recv_cb(rui_lora_p2p_recv_t data)
     Serial.print(receivedStream[i]);
   }
   Serial.println("");
-
-//   confirmacion(receivedStream);
-
-  // send_result = api.lora.psend(strlen((const char *)receivedStream), (uint8_t *)receivedStream);
-  // Serial.printf("P2P send %s\r\n", send_result ? "Success" : "Fail");
-
-//   Serial.printf("P2P Rx mode %s\r\n",
-//     api.lora.precv(65533) ? "Scss" : "Fail");
 }
-
-// void confirmacion(char *payload){
-
-//   //<TPK:MAC,addrH,addrL:&opcode@payload#crc:count>
-
-//   char *tokHEAD;
-//   char *tokDIR;
-//   char *tokPAYLOAD;
-//   char *tokCOUNT;
-
-//   tokHEAD = strtok(payload, ":");
-//   tokDIR = strtok(NULL, ":");
-//   tokPAYLOAD = strtok(NULL, ":");
-//   tokCOUNT = strtok(NULL, ">");
-
-//   char new_payload[128];
-//   char *msg = "&94@#";
-
-//   uint16_t crc = calculate_modbus_crc(msg);
-
-//   snprintf(new_payload, sizeof(new_payload), "%s:%s:%s%X:%s>", tokHEAD, tokDIR, msg, crc, tokCOUNT);
-
-//   send_result = api.lora.psend(strlen((const char *)new_payload), (uint8_t *)new_payload);
-//   Serial.printf("P2P send %s\r\n", send_result ? "Success" : "Fail");
-    
-// }
-
-// uint16_t calculate_modbus_crc(const char* payload){ //Calcula el Checksum del payload
-//   uint8_t length = strlen(payload);
-
-//   //Inicia el CHECKSUM
-//   uint16_t crc = 0xFFFF;
-//   for (size_t i = 0; i < length; i++) {
-//     crc ^= payload[i];
-//     for (uint8_t j = 0; j < 8; j++) {
-//       if (crc & 0x0001) {
-//         crc = (crc >> 1) ^ 0xA001;
-//       } else {
-//         crc = crc >> 1;
-//       }
-//     }
-//   }
-
-//   return crc;
-// }
-
-// void send_cb(void)
-// {
-//   Serial.println("Mensaje enviado!");
-//   Serial.printf("P2P Rx mode %s\r\n",
-//     api.lora.precv(65533) ? "Scss" : "Fail");
-// }
 
 /****************************************************************************/
 /***        Main Setup                                                    ***/

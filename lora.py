@@ -416,7 +416,7 @@ def main(): #Funcion principal
     pre_payload = f"<TPK:{addrH},{addrL}:"
     print(f"Pre_payload: {pre_payload}")
 
-    # sp.run([comando], shell=True)
+    sp.run([comando], shell=True)
     menu()
 
 

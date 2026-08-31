@@ -3,11 +3,18 @@
 import serial
 import time
 import os
-import readline
+# import readline
 import subprocess as sp
 import pandas as pd
 import serial.tools.list_ports
 import platform
+
+# Importación segura de readline (solo para Linux)
+try:
+    import readline
+except ImportError:
+    pass
+
 
 device = "USB0"
 pre_payload = ""
@@ -23,8 +30,8 @@ def delay(ms): #delay en milisegundos
     time.sleep(ms/1000)
 
 
-ser = serial.Serial(f'/dev/tty{device}', 115200, timeout = 1)
-delay(100)
+ser = None #Lo inicio vacio
+# delay(100)
 
 def search_RAK11720():
     global ser
@@ -41,28 +48,32 @@ def search_RAK11720():
             print(f"Puerto: {device}")
             ser = serial.Serial(f'{device}', 115200, timeout = 1)
             while count < 1: #Sacando RX
-                response = Send_AT("AT+VER=?", timeout_espera=(1/1000)*10)
-                # print("AT > AT+VER=?") 
-                # print(f"AT < {response}")
-                if response[0] == "AT+VER=RUI_4.2.4_RAK11720":
-                    print(f"{response[0]}")
-                    print(f"{response[1]}")
-                    break
-                count += 1
+                response = Send_AT("AT+VER=?", timeout_espera = 1)
+                # print(response)
 
+                find_str = response[0].find("RAK11720")
+                if find_str != -1:
+                    print(f"RAK11720 CONECTADO! {device}")
+                    return True
+                count += 1
 
         if "COM" in device and platform.system() == "Windows":
             print(f"Puerto: {device}")
             ser = serial.Serial(f'{device}', 115200, timeout = 1)
 
             while count < 1: #Sacando RX
-                response = Send_AT("AT+VER=?")
-                print("AT > AT+VER=?") 
-                print(f"AT < {response}")
-                if response[0] == "OK":
-                    break
+                response = Send_AT("AT+VER=?", timeout_espera = 1)
+                print(response)
+
+                find_str = response[0].find("RAK11720")
+                if find_str != -1:
+                    print(f"RAK11720 CONECTADO! {device}")
+                    return True
                 count += 1
-             
+
+    print("ERROR: No se detectó ningún módulo RAK11720 conectado.")
+    return False
+        
 
 def Psend(command):
     print(command)
@@ -390,7 +401,8 @@ def menu():
 def main(): #Funcion principal
     global df, pre_payload
 
-    search_RAK11720()
+    if search_RAK11720() == False:
+        exit()
 
     #Predefinicion de la primera opcion
     df = pd.read_csv('addr_lora.csv')
@@ -404,8 +416,7 @@ def main(): #Funcion principal
     pre_payload = f"<TPK:{addrH},{addrL}:"
     print(f"Pre_payload: {pre_payload}")
 
-    sp.run([comando], shell=True)
-    search_RAK11720()
+    # sp.run([comando], shell=True)
     menu()
 
 

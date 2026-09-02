@@ -139,17 +139,17 @@ def opcion_1():
     global ser, pre_payload
     try:
         while True:
-            comando = input("Ingrese el comando a enviar: ")
+            opcode = input("Ingrese el comando a enviar: ")
 
             sp.run([comando], shell=True) 
 
-            crc_num = modbuscrc(f"{comando}#")
+            crc_num = modbuscrc(f"{opcode}#")
             crc_ascii = f"{crc_num:04X}"
 
             print(f"CRC: {crc_ascii}")
 
             #PAYLOAD PARA ENVIAR LORA
-            payload = f"{pre_payload}{comando}#{crc_ascii}{fin_payload}"
+            payload = f"{pre_payload}{opcode}#{crc_ascii}{fin_payload}"
             payload_hex = payload.encode('ascii').hex().upper() #codifica en ascii, convierte en hex y convierte todo a mayusculas
 
             print(f"Enviando Payload: {payload}")

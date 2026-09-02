@@ -61,7 +61,7 @@ void setup()
     Serial.begin(115200);
     Serial.println(CLS);
     Serial.println(HOME);
-    Serial.println("TPK LoRa LPG-MV P2P PING PONG");
+    Serial.println("LoRa P2P PING PONG");
     Serial.println("------------------------------------------------------");
 
     // Conf de Lora P2P si no está en Lora P2P
